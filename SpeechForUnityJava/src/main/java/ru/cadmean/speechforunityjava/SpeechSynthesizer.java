@@ -4,7 +4,6 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
-import java.util.List;
 import java.util.Locale;
 
 public class SpeechSynthesizer {
@@ -15,16 +14,9 @@ public class SpeechSynthesizer {
     private float currentRate = 1f;
 
     private TextToSpeech tts;
-    private Context context;
 
     public SpeechSynthesizer(Context context) {
-        this.context = context;
         tts = new TextToSpeech(context, status -> {
-//            List<TextToSpeech.EngineInfo> engines = tts.getEngines();
-//            for (TextToSpeech.EngineInfo engine : engines) {
-//                Log.d("Speech", engine.name);
-//            }
-
             if (status != TextToSpeech.SUCCESS) {
                 Log.d("Speech", "Failed to initialize text to speech: " + status);
                 return;
