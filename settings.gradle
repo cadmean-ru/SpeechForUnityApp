@@ -1,0 +1,3 @@
+include ':SpeechForUnityJava'
+include ':app'
+rootProject.name = "SpeechForUnityApp"
