@@ -15,7 +15,7 @@ public class SpeechSynthesizer {
 
     private TextToSpeech tts;
 
-    public SpeechSynthesizer(Context context) {
+    public SpeechSynthesizer(Context context, SpeechSynthesizerDelegate delegate) {
         tts = new TextToSpeech(context, status -> {
             if (status != TextToSpeech.SUCCESS) {
                 Log.d("Speech", "Failed to initialize text to speech: " + status);
@@ -24,6 +24,8 @@ public class SpeechSynthesizer {
 
             tts.setLanguage(Locale.ENGLISH);
             tts.setSpeechRate(currentRate);
+
+            tts.setOnUtteranceProgressListener(new UnityUtteranceProgressListener(delegate));
 
             isReady = true;
         });

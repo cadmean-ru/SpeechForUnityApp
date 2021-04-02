@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import ru.cadmean.speechforunityjava.SpeechSynthesizer;
+import ru.cadmean.speechforunityjava.SpeechSynthesizerDelegate;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        speechSynthesizer = new SpeechSynthesizer(getApplicationContext());
+        speechSynthesizer = new SpeechSynthesizer(getApplicationContext(), new SpeechSynthesizerDelegate() {
+            @Override
+            public void onSpeakingStarted() {
+                Log.d("Bruh", "speaking started");
+            }
+
+            @Override
+            public void onSpeakingFinished() {
+                Log.d("Bruh", "speaking finished");
+            }
+
+            @Override
+            public void onSpeakingCancelled() {
+                Log.d("Bruh", "speaking cancelled");
+            }
+        });
 
         editSpeechText = findViewById(R.id.editSpeechText);
         startButton = findViewById(R.id.startButton);
