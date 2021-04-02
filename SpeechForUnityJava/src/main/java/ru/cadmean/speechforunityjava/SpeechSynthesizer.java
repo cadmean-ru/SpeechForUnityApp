@@ -2,6 +2,7 @@ package ru.cadmean.speechforunityjava;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
 import java.util.Locale;
@@ -25,7 +26,22 @@ public class SpeechSynthesizer {
             tts.setLanguage(Locale.ENGLISH);
             tts.setSpeechRate(currentRate);
 
-            tts.setOnUtteranceProgressListener(new UnityUtteranceProgressListener(delegate));
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+                    delegate.onSpeakingStarted();
+                }
+
+                @Override
+                public void onDone(String utteranceId) {
+                    delegate.onSpeakingFinished();
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+                    delegate.onSpeakingCancelled();
+                }
+            });
 
             isReady = true;
         });
